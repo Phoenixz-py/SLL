@@ -29,9 +29,7 @@ class LINKEDLIST{
       last_node.next = node;
 
     }
-    displayer(){
-      console.log(this.head)
-    }
+   
 }
 
 // let list = new LINKEDLIST();
