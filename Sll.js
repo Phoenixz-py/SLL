@@ -1,63 +1,52 @@
 import PromptSync from "prompt-sync";
-let prompt = PromptSync({signit: true})
-
-class LISTNODE{
-    constructor(data){
-        this.data = data;
-        this.next = null;
+const prompt = PromptSync({sigint: true})
+console.log('Welcome to my program to create a linked list')
+class Node {
+    constructor(data, next = null) {
+      this.data = data;
+      this.next = next;
     }
-}
-
-class LINKEDLIST{
-    constructor(head = null){
-        this.head = head
+  }
+  
+  class List {
+    constructor(head = null) {
+      this.head = head
     }
-    getFirst(){
-        return this.head;
+  
+    getFirst() {
+      return this.head;
     }
-    append(node) {
-      if(this.head === null) {
+  
+    append(value) {
+      const node = new Node(value);
+  
+      if (this.head === null) {
         this.head = node;
-        return;
+      } else {
+        let last_node = this.head;
+  
+        while (last_node.next !== null) {
+          last_node = last_node.next;
+        }
+  
+        last_node.next = node;
       }
-      let last_node = this.head;
-      while(last_node.next !== null) {
-        last_node = last_node.next;
-      }
-      // now we are certain that we are in the end of the list and last_node is the end node.
-
-      last_node.next = node;
-
+  
+      return this;
     }
-   
-}
+  
+    *[Symbol.iterator]() {
+      let current = this.head
+  
+      while (current !== null) {
+        yield current.data
+  
+        current = current.next;
+      }
+    }
+  }
+  const askerString = "Enter value you want to make it present in the linked list: ";
 
-// let list = new LINKEDLIST();
-// list.append(new LISTNODE("hello"))
-// list.append(new LISTNODE("world"))
-
-
-
-let list = new LINKEDLIST();
-
-const asker = +prompt("Enter how many nodes you want to add: ")
-
-for(let i = 0; i< asker; i++){
-    console.log("Enter value you want to make it present in the linked list: ")
-    let input = +prompt('Enter: ') //aegs method
-
-    list.append(new LISTNODE(input));
-
-}
-
-
-while(list.head != null){
-  console.log(list.head.data)
-  list.head = list.head.next
-}
-
-
-// console.log(list.head.data)
-// console.log(list.head.next.data)
-// console.log(list)
-
+  let list = new List().append(+prompt(askerString)).append(+prompt(askerString)).append(+prompt(askerString)).append(+prompt(askerString));
+  
+  console.log([...list])
